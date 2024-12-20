@@ -30,25 +30,25 @@ pipeline {
 
                 def embed = [
                     title: ":white_check_mark:  Build Sukses ",
-                    description: "*Job*: ${env.JOB_NAME}\nBuild: ${env.BUILD_NUMBER}\nStatus: **BERHASIL**",
+                    description: "**Job**: ${env.JOB_NAME}\nBuild: ${env.BUILD_NUMBER}\n*Status*: **:green_circle:  BERHASIL**\n*Jenkins*: https://fairly-notable-skink.ngrok-free.app/",
                     color: 3066993,
                     thumbnail: [
                         url: "https://media.discordapp.net/attachments/1319516985721229315/1319572293512335411/0d12a119ba7c7899f6bb2224e6b31232.webp?ex=676672f7&is=67652177&hm=1f43f91ef18c018e3de28c7e20197e70bfb391c13198d23861803bdc4833c35c&=&format=webp&width=437&height=437" 
                     ],
                     fields: [
                         [
-                            name: ":clock1: *Waktu Mulai*",
+                            name: ":clock1: *W*aktu Mulai**",
                             value: formattedStartTime, 
                             inline: true
                         ],
                         [
-                            name: ":stopwatch: Durasi",
+                            name: ":stopwatch: **Durasi**",
                             value: "${currentBuild.durationString}",
                             inline: true
                         ]
                     ],
                     footer: [
-                        text: "Dikirim pada: ${new Date().format('dd-MM-yyyy HH:mm:ss')}" 
+                        text: "-" 
                     ]
                 ]
                 def message = [
@@ -87,7 +87,7 @@ pipeline {
                         ]
                     ],
                     footer: [
-                        text: "Dikirim pada: ${new Date().format('dd-MM-yyyy HH:mm:ss')}"
+                        text: "-"
                     ]
                 ]
                 def message = [
