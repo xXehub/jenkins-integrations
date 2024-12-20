@@ -28,18 +28,28 @@ pipeline {
         success {
             script {
                 // Kirim notifikasi ke Discord jika build sukses
-                discordSend(
-                    webhookURL: DISCORD_WEBHOOK_URL,
-                    message: "Build Sukses :tada:\nJob: ${env.JOB_NAME}\nBuild: ${env.BUILD_NUMBER}\nStatus: SUCCESS"
+                def message = [
+                    content: "Build Sukses :tada:\nJob: ${env.JOB_NAME}\nBuild: ${env.BUILD_NUMBER}\nStatus: SUCCESS"
+                ]
+                httpRequest(
+                    url: DISCORD_WEBHOOK_URL,
+                    httpMode: 'POST',
+                    contentType: 'APPLICATION_JSON',
+                    requestBody: groovy.json.JsonOutput.toJson(message)
                 )
             }
         }
         failure {
             script {
                 // Kirim notifikasi ke Discord jika build gagal
-                discordSend(
-                    webhookURL: DISCORD_WEBHOOK_URL,
-                    message: "Build Gagal :x:\nJob: ${env.JOB_NAME}\nBuild: ${env.BUILD_NUMBER}\nStatus: FAILURE"
+                def message = [
+                    content: "Build Gagal :x:\nJob: ${env.JOB_NAME}\nBuild: ${env.BUILD_NUMBER}\nStatus: FAILURE"
+                ]
+                httpRequest(
+                    url: DISCORD_WEBHOOK_URL,
+                    httpMode: 'POST',
+                    contentType: 'APPLICATION_JSON',
+                    requestBody: groovy.json.JsonOutput.toJson(message)
                 )
             }
         }
