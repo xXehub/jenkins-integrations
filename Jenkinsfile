@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1319563607305879614/wl_fWOlU06vUI4G7N28IvX6GSctpmwS8o20mjicyBkCjxKjt3FhocBb-63NSfaRFV8_I' 
+        DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1319517307277410345/KmUhZyF82LFk6sjZZygvFHSiMfFEv_sowpHv0NtBfKvM8I5hKwI_tx_v9kpbHwPD-UJF' // Ganti dengan URL webhook yang kamu dapatkan
     }
 
     stages {
@@ -27,7 +27,13 @@ pipeline {
             script {
                 discordSend(
                     webhookURL: DISCORD_WEBHOOK_URL,
-                    content: "Build Sukses :tada:\nJob: ${env.JOB_NAME}\nBuild: ${env.BUILD_NUMBER}\nStatus: SUCCESS"
+                    embeds: [
+                        [
+                            "title": "Build Sukses :tada:",
+                            "description": "Job: ${env.JOB_NAME}\nBuild: ${env.BUILD_NUMBER}\nStatus: SUCCESS",
+                            "color": 3066993 // Warna hijau
+                        ]
+                    ]
                 )
             }
         }
@@ -35,7 +41,13 @@ pipeline {
             script {
                 discordSend(
                     webhookURL: DISCORD_WEBHOOK_URL,
-                    content: "Build Gagal :x:\nJob: ${env.JOB_NAME}\nBuild: ${env.BUILD_NUMBER}\nStatus: FAILURE"
+                    embeds: [
+                        [
+                            "title": "Build Gagal :x:",
+                            "description": "Job: ${env.JOB_NAME}\nBuild: ${env.BUILD_NUMBER}\nStatus: FAILURE",
+                            "color": 15158332 // Warna merah
+                        ]
+                    ]
                 )
             }
         }
