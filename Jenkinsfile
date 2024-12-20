@@ -25,29 +25,43 @@ pipeline {
     post {
         success {
             script {
-                discordSend(
-                    webhookURL: DISCORD_WEBHOOK_URL,
-                    embeds: [
-                        [
+                def message = """
+                {
+                    "embeds": [
+                        {
                             "title": "Build Sukses :tada:",
                             "description": "Job: ${env.JOB_NAME}\nBuild: ${env.BUILD_NUMBER}\nStatus: SUCCESS",
-                            "color": 3066993 // Warna hijau
-                        ]
+                            "color": 3066993
+                        }
                     ]
+                }
+                """
+                httpRequest(
+                    url: DISCORD_WEBHOOK_URL,
+                    httpMode: 'POST',
+                    contentType: 'APPLICATION_JSON',
+                    requestBody: message
                 )
             }
         }
         failure {
             script {
-                discordSend(
-                    webhookURL: DISCORD_WEBHOOK_URL,
-                    embeds: [
-                        [
+                def message = """
+                {
+                    "embeds": [
+                        {
                             "title": "Build Gagal :x:",
                             "description": "Job: ${env.JOB_NAME}\nBuild: ${env.BUILD_NUMBER}\nStatus: FAILURE",
-                            "color": 15158332 // Warna merah
-                        ]
+                            "color": 15158332
+                        }
                     ]
+                }
+                """
+                httpRequest(
+                    url: DISCORD_WEBHOOK_URL,
+                    httpMode: 'POST',
+                    contentType: 'APPLICATION_JSON',
+                    requestBody: message
                 )
             }
         }
