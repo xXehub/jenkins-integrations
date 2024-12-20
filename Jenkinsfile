@@ -25,6 +25,9 @@ pipeline {
     post {
         success {
             script {
+                def startTime = new Date(currentBuild.startTimeInMillis)
+                def formattedStartTime = startTime.format('dd-MM-yyyy HH:mm:ss')
+
                 def embed = [
                     title: ":white_check_mark:  Build Sukses ",
                     description: "*Job*: ${env.JOB_NAME}\nBuild: ${env.BUILD_NUMBER}\nStatus: **BERHASIL**",
@@ -35,7 +38,7 @@ pipeline {
                     fields: [
                         [
                             name: ":clock1: *Waktu Mulai*",
-                            value: "${currentBuild.startTimeInMillis}", 
+                            value: formattedStartTime, 
                             inline: true
                         ],
                         [
@@ -45,7 +48,7 @@ pipeline {
                         ]
                     ],
                     footer: [
-                        text: "${new Date().format('dd-MM-yyyy HH:mm:ss')}" 
+                        text: "Dikirim pada: ${new Date().format('dd-MM-yyyy HH:mm:ss')}" 
                     ]
                 ]
                 def message = [
@@ -61,6 +64,9 @@ pipeline {
         }
         failure {
             script {
+                def startTime = new Date(currentBuild.startTimeInMillis)
+                def formattedStartTime = startTime.format('dd-MM-yyyy HH:mm:ss')
+
                 def embed = [
                     title: ":x: Build Gagal",
                     description: "Job: ${env.JOB_NAME}\nBuild: ${env.BUILD_NUMBER}\nStatus: **GAGAL**",
@@ -71,7 +77,7 @@ pipeline {
                     fields: [
                         [
                             name: ":clock1: Waktu Mulai",
-                            value: "${currentBuild.startTimeInMillis}", 
+                            value: formattedStartTime, 
                             inline: true
                         ],
                         [
