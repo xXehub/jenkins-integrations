@@ -28,8 +28,13 @@ pipeline {
         success {
             script {
                 // Kirim notifikasi ke Discord jika build sukses
+                def embed = [
+                    title: "Build Sukses :tada:",
+                    description: "Job: ${env.JOB_NAME}\nBuild: ${env.BUILD_NUMBER}\nStatus: SUCCESS",
+                    color: 3066993 // Optional: Color in decimal (this is a green color)
+                ]
                 def message = [
-                    content: "Build Sukses :tada:\nJob: ${env.JOB_NAME}\nBuild: ${env.BUILD_NUMBER}\nStatus: SUCCESS"
+                    embeds: [embed]
                 ]
                 httpRequest(
                     url: DISCORD_WEBHOOK_URL,
@@ -42,8 +47,13 @@ pipeline {
         failure {
             script {
                 // Kirim notifikasi ke Discord jika build gagal
+                def embed = [
+                    title: "Build Gagal :x:",
+                    description: "Job: ${env.JOB_NAME}\nBuild: ${env.BUILD_NUMBER}\nStatus: FAILURE",
+                    color: 15158332 // Optional: Color in decimal (this is a red color)
+                ]
                 def message = [
-                    content: "Build Gagal :x:\nJob: ${env.JOB_NAME}\nBuild: ${env.BUILD_NUMBER}\nStatus: FAILURE"
+                    embeds: [embed]
                 ]
                 httpRequest(
                     url: DISCORD_WEBHOOK_URL,
